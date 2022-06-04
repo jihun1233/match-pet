@@ -1,6 +1,6 @@
 import store from 'store'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import dayjs, { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 
 import type { RootState } from '.'
 import { IMatch, IMatchState, IUser } from 'types/match'
@@ -8,7 +8,7 @@ import { IMatch, IMatchState, IUser } from 'types/match'
 const INITIAL_STATE: IMatchState = {
   users: store.get('match-pet-users') || [],
   matches: store.get('match-pet-matches') || [],
-  rejects: store.get('match-pet-users') || [],
+  rejects: store.get('match-pet-rejects') || [],
 }
 
 const matchSlice = createSlice({
@@ -30,7 +30,7 @@ const matchSlice = createSlice({
     addMatch: (state: IMatchState, action: PayloadAction<IUser>) => {
       const matchUser = action.payload
       state.users = state.users.filter((u) => u.id !== matchUser.id)
-      state.matches = [...state.matches, { user: matchUser, date: new Dayjs().format('YYYY-MM-DD'), chats: [] }]
+      state.matches = [...state.matches, { user: matchUser, date: dayjs().format('YYYY-MM-DD'), chats: [] }]
     },
     addReject: (state: IMatchState, action: PayloadAction<IUser>) => {
       const rejectUser = action.payload
