@@ -1,12 +1,17 @@
-import { getUsersApi } from 'services/match'
+import { Route, Routes } from 'react-router-dom'
+import Layout from './Layout'
 import Match from './Match'
-import styles from './routes.module.scss'
 
 const App = () => {
   return (
-    <div className={styles.app}>
-      <Match />
-    </div>
+    <Routes>
+      <Route path='/' element={<Layout />}>
+        <Route path='' element={<Match />} />
+        <Route path='match-list' />
+        <Route path='reject-list' />
+        <Route path='*' element={<div>not found!</div>} />
+      </Route>
+    </Routes>
   )
 }
 
