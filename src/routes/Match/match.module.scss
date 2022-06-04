@@ -1,0 +1,28 @@
+@use '/src/styles/mixins/flexbox';
+@use '/src/styles/mixins/responsive';
+
+.match {
+  @include flexbox.flexbox(center,center);
+  width: 100%;
+  height: 100%;
+  transition: 0.2s;
+
+  ul {
+    @include flexbox.flexbox(start,center);
+
+    li:not(:first-child) {
+      display: none;
+      transition: 0.2s;
+    }
+  }
+  // @include responsive.after(SD) {
+  //   justify-content: flex-start;
+
+  //   ul > li:not(:first-child) {
+  //     display: inline;
+  //     pointer-events: none;
+  //     opacity: 0.5;
+  //     transform: scale(0.7);
+  //   }
+  // }
+}
