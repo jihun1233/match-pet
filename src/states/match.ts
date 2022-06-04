@@ -1,25 +1,9 @@
 import store from 'store'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import dayjs, { Dayjs } from 'dayjs'
 
 import type { RootState } from '.'
-
-interface IUser {
-  imgSrc: string
-  id: string
-  name: string
-  introduction: string
-}
-
-interface IMatch {
-  user: IUser
-  chats: string[]
-}
-
-export interface IMatchState {
-  users: IUser[]
-  matches: IMatch[]
-  rejects: IUser[]
-}
+import { IMatch, IMatchState, IUser } from 'types/match'
 
 const INITIAL_STATE: IMatchState = {
   users: store.get('match-pet-users') || [],
@@ -43,22 +27,24 @@ const matchSlice = createSlice({
       state.rejects = action.payload
       store.set('match-pet-rejects', state.rejects)
     },
-    // setTheme: (state: SystemState, action: PayloadAction<string>) => {
-    //   const newColorSet = action.payload
-    //   store.set('app.theme', newColorSet)
-    //   document.documentElement.setAttribute('color-theme', newColorSet)
-    //   state.theme = newColorSet
-    // },
-    // toggleTheme: (state: SystemState) => {
-    //   const newColorSet = state.theme === 'light' ? 'dark' : 'light'
-    //   store.set('app.theme', newColorSet)
-    //   document.documentElement.setAttribute('color-theme', newColorSet)
-    //   state.theme = newColorSet
-    // },
+    addMatch: (state: IMatchState, action: PayloadAction<IUser>) => {
+      const matchUser = action.payload
+      state.users = state.users.filter((u) => u.id !== matchUser.id)
+      state.matches = [...state.matches, { user: matchUser, date: new Dayjs().format('YYYY-MM-DD'), chats: [] }]
+    },
+    addReject: (state: IMatchState, action: PayloadAction<IUser>) => {
+      const rejectUser = action.payload
+      state.users = state.users.filter((u) => u.id !== rejectUser.id)
+      state.rejects = [...state.rejects, { ...rejectUser }]
+    },
+    cancelMatch: (state: IMatchState, action: PayloadAction<IMatch>) => {
+      const match = action.payload
+      state.matches = state.matches.filter((m) => m.user.id !== match.user.id)
+    },
   },
 })
 
-export const { setUsers, setMatches, setRejects } = matchSlice.actions
+export const { setUsers, setMatches, setRejects, addMatch, addReject, cancelMatch } = matchSlice.actions
 
 export default matchSlice.reducer
 
