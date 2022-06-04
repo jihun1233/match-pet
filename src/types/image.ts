@@ -5,7 +5,7 @@ export interface IResponse {
 }
 
 export interface IData {
-  id: number
+  id: string
   pageURL: string
   type: string
   tags: string
