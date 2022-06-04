@@ -8,6 +8,7 @@ export const getImage = () => {
     params: {
       key: process.env.REACT_APP_API_KEY,
       q: 'dog',
+      per_page: 200,
     },
   })
 }
