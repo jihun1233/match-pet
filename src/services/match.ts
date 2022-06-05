@@ -12,7 +12,7 @@ export const getUsersApi = (page: number) =>
       name: getName(),
       info: getInfo(),
       previewSrc: hit.previewURL,
-      imgSrc: hit.largeImageURL,
+      imgSrc: hit.webformatURL,
     }))
   )
 
