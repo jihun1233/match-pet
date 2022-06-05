@@ -1,0 +1,7 @@
+@use '/src/styles/mixins/flexbox';
+
+.rejectList {
+  @include flexbox.flexbox(start,center);
+  flex-direction: column;
+  gap: 10px;
+}
