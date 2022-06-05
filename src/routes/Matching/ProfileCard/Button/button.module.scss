@@ -1,0 +1,17 @@
+@use '/src/styles/mixins/flexbox';
+@use '/src/styles/constants/colors';
+
+.button {
+  @include flexbox.flexbox(center,center);
+  width: 60px;
+  height: 60px;
+  color: colors.$MAIN_THEME;
+  background-color: colors.$WHITE;
+  border: 1px solid colors.$MAIN_THEME;
+  border-radius: 50%;
+
+  &.filled {
+    color: colors.$WHITE;
+    background-color: colors.$MAIN_THEME;
+  }
+}
