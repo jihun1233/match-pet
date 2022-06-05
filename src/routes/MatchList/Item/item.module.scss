@@ -1,0 +1,53 @@
+@use '/src/styles/mixins/flexbox';
+@use '/src/styles/constants/colors';
+
+.item {
+  @include flexbox.flexbox(between,center);
+  gap: 10px;
+  width: 100%;
+  max-width: 1200px;
+  height: 125px;
+  padding: 10px;
+  border: 1px solid colors.$CARD_BORDER;
+  border-radius: 15px;
+
+  .leftContainer {
+    @include flexbox.flexbox(start,start);
+    height: 100%;
+
+    .imgContainer {
+      width: 150px;
+      height: 100px;
+      overflow: hidden;
+      border-radius: 15px;
+    }
+
+    .textContainer {
+      @include flexbox.flexbox(between, start);
+      flex-direction: column;
+      height: 100%;
+      padding: 10px 0;
+      margin-left: 10px;
+
+      .userName {
+        font-size: 20px;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .rightContainer {
+    @include flexbox.flexbox(center, end);
+  }
+
+  .cancelIcon {
+    color: colors.$CANCEL_BUTTON;
+    visibility: hidden;
+  }
+
+  &:hover {
+    .cancelIcon {
+      visibility: visible;
+    }
+  }
+}

@@ -1,0 +1,63 @@
+@use '/src/styles/mixins/flexbox';
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
+@use '/src/styles/mixins/position';
+@use '/src/styles/constants/levels';
+
+.gnb {
+  @include position.fixed(auto auto 0 0);
+  z-index: levels.$GNB;
+  width: 100%;
+  height: 40px;
+  background-color: colors.$GNB_BACKGROUND;
+
+  a {
+    @include flexbox.flexbox(start, center);
+    gap: 10px;
+    color: colors.$MAIN_TEXT;
+    text-decoration: none;
+
+    &.active {
+      color: colors.$MAIN_THEME;
+    }
+  }
+
+  ul {
+    @include flexbox.flexbox(center, center);
+    width: 100%;
+
+    li {
+      @include flexbox.flexbox(center, cneter);
+      width: 100%;
+
+      p {
+        display: none;
+      }
+    }
+  }
+
+  @include responsive.after(SD) {
+    @include position.fixed(0 auto auto 0);
+    width: 200px;
+    height: 100%;
+
+    ul {
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 60px;
+
+      li {
+        align-items: center;
+        justify-content: flex-start;
+        height: 40px;
+
+        p {
+          display: inline;
+          margin-top: auto;
+          margin-bottom: auto;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}

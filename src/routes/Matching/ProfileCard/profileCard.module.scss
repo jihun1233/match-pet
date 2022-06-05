@@ -1,0 +1,60 @@
+@use '/src/styles/mixins/flexbox';
+@use '/src/styles/mixins/position';
+@use '/src/styles/constants/colors';
+
+.profileCard {
+  @include flexbox.flexbox(start,start);
+  flex-direction: column;
+  gap: 30px;
+  width: 440px;
+  min-height: 690px;
+  padding: 20px;
+  overflow: hidden;
+  user-select: none;
+  background-color: colors.$MAIN_BACKGROUND;
+  border: 1px solid colors.$CARD_BORDER;
+  border-radius: 25px;
+
+  .buttonContainer {
+    @include flexbox.flexbox(around, center);
+    width: 100%;
+
+    .rotate {
+      transform: rotate(45deg);
+    }
+  }
+
+  .imgContainer {
+    position: relative;
+    width: 400px;
+    height: 500px;
+    overflow: hidden;
+    border-radius: 25px;
+
+    img {
+
+      @include position.middleBox;
+      height: 700px;
+    }
+  }
+
+  .userName {
+    width: 100%;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: right;
+  }
+
+  .infoContainer {
+    ul {
+      @include flexbox.flexbox(start,start);
+      flex-direction: column;
+
+      li {
+        + li {
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+}

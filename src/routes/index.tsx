@@ -1,19 +1,19 @@
-import { useEffect, useState } from 'react'
-import { getImage } from 'services'
-import { IData } from 'types/image'
-import styles from './routes.module.scss'
+import { Route, Routes } from 'react-router-dom'
+import Layout from './Layout'
+import Matching from './Matching'
+import MatchList from './MatchList'
+import RejectList from './RejectList'
 
 const App = () => {
-  const [hits, setHits] = useState<IData[]>([])
-  useEffect(() => {
-    getImage().then((res) => setHits(res.data.hits))
-  }, [])
   return (
-    <div className={styles.app}>
-      {hits.map((hit) => (
-        <img src={hit.webformatURL} alt='test' key={`img-key-${hit.id}`} />
-      ))}
-    </div>
+    <Routes>
+      <Route path='/' element={<Layout />}>
+        <Route path='' element={<Matching />} />
+        <Route path='match-list' element={<MatchList />} />
+        <Route path='reject-list' element={<RejectList />} />
+        <Route path='*' element={<div>not found!</div>} />
+      </Route>
+    </Routes>
   )
 }
 

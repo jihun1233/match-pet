@@ -1,30 +1,15 @@
 import store from 'store'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import dayjs from 'dayjs'
 
 import type { RootState } from '.'
-
-interface IUser {
-  imgSrc: string
-  id: string
-  name: string
-  introduction: string
-}
-
-interface IMatch {
-  user: IUser
-  chats: string[]
-}
-
-export interface IMatchState {
-  users: IUser[]
-  matches: IMatch[]
-  rejects: IUser[]
-}
+import { IMatch, IMatchState, IUser } from 'types/match'
 
 const INITIAL_STATE: IMatchState = {
+  page: Number(store.get('match-pet-page')) || 1,
   users: store.get('match-pet-users') || [],
   matches: store.get('match-pet-matches') || [],
-  rejects: store.get('match-pet-users') || [],
+  rejects: store.get('match-pet-rejects') || [],
 }
 
 const matchSlice = createSlice({
@@ -33,32 +18,46 @@ const matchSlice = createSlice({
   reducers: {
     setUsers: (state: IMatchState, action: PayloadAction<IUser[]>) => {
       state.users = action.payload
+
       store.set('match-pet-users', state.users)
     },
-    setMatches: (state: IMatchState, action: PayloadAction<IMatch[]>) => {
-      state.matches = action.payload
+    addMatch: (state: IMatchState, action: PayloadAction<IUser>) => {
+      const matchUser = action.payload
+      state.users = state.users.filter((u) => u.id !== matchUser.id)
+      state.matches = [...state.matches, { user: matchUser, date: dayjs().format('YYYY-MM-DD'), chats: [] }]
+
+      store.set('match-pet-users', state.users)
       store.set('match-pet-matches', state.matches)
     },
-    setRejects: (state: IMatchState, action: PayloadAction<IUser[]>) => {
-      state.rejects = action.payload
+    addReject: (state: IMatchState, action: PayloadAction<IUser>) => {
+      const rejectUser = action.payload
+      state.users = state.users.filter((u) => u.id !== rejectUser.id)
+      state.rejects = [...state.rejects, { ...rejectUser }]
+
+      store.set('match-pet-users', state.users)
       store.set('match-pet-rejects', state.rejects)
     },
-    // setTheme: (state: SystemState, action: PayloadAction<string>) => {
-    //   const newColorSet = action.payload
-    //   store.set('app.theme', newColorSet)
-    //   document.documentElement.setAttribute('color-theme', newColorSet)
-    //   state.theme = newColorSet
-    // },
-    // toggleTheme: (state: SystemState) => {
-    //   const newColorSet = state.theme === 'light' ? 'dark' : 'light'
-    //   store.set('app.theme', newColorSet)
-    //   document.documentElement.setAttribute('color-theme', newColorSet)
-    //   state.theme = newColorSet
-    // },
+    cancelMatch: (state: IMatchState, action: PayloadAction<IMatch>) => {
+      const match = action.payload
+      state.matches = state.matches.filter((m) => m.user.id !== match.user.id)
+      store.set('match-pet-matches', state.matches)
+    },
+    revertReject: (state: IMatchState, action: PayloadAction<IUser>) => {
+      const user = action.payload
+      state.rejects = state.rejects.filter((r) => r.id !== user.id)
+      state.users = [...state.users, user]
+
+      store.set('match-pet-users', state.users)
+      store.set('match-pet-rejects', state.rejects)
+    },
+    increasePage: (state: IMatchState) => {
+      state.page += 1
+      store.set('match-pet-page', state.page)
+    },
   },
 })
 
-export const { setUsers, setMatches, setRejects } = matchSlice.actions
+export const { setUsers, addMatch, addReject, cancelMatch, increasePage, revertReject } = matchSlice.actions
 
 export default matchSlice.reducer
 
@@ -67,3 +66,4 @@ export default matchSlice.reducer
 export const getUsers = (state: RootState): IUser[] => state.match.users
 export const getMatches = (state: RootState): IMatch[] => state.match.matches
 export const getRejects = (state: RootState): IUser[] => state.match.rejects
+export const getPage = (state: RootState): number => state.match.page
