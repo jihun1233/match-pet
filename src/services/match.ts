@@ -5,8 +5,8 @@ import { getName, getInfo } from './mock'
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || ''
 
-export const getUsersApi = () =>
-  getImageApi().then((res): IUser[] =>
+export const getUsersApi = (page: number) =>
+  getImageApi(page).then((res): IUser[] =>
     res.hits.map((hit) => ({
       id: hit.id,
       name: getName(),
@@ -16,13 +16,14 @@ export const getUsersApi = () =>
     }))
   )
 
-export const getImageApi = () =>
+export const getImageApi = (page: number = 1) =>
   axios
     .get<IResponse>(BASE_URL, {
       params: {
         key: process.env.REACT_APP_API_KEY,
         q: 'dog',
         per_page: 30,
+        page,
       },
     })
     .then((res) => res.data)
