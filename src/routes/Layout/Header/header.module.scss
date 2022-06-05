@@ -1,12 +1,15 @@
 @use '/src/styles/mixins/flexbox';
 @use '/src/styles/constants/colors';
 @use '/src/styles/mixins/position';
+@use '/src/styles/constants/levels';
 
 header {
   @include flexbox.flexbox(center, center);
   @include position.fixed(0 0 auto auto);
+  z-index: levels.$HEADER;
   width: 100%;
   height: 70px;
+  background-color: colors.$MAIN_BACKGROUND;
 
   .logo {
     color: colors.$MAIN_THEME;

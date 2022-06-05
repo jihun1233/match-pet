@@ -15,6 +15,7 @@
     height: 100%;
     padding-top: 70px;
     padding-bottom: 40px;
+    overflow: scroll;
 
     @include responsive.after(SD) {
       padding-bottom: 0;
