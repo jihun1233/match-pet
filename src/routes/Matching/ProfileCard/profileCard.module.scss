@@ -10,7 +10,8 @@
   min-height: 690px;
   padding: 20px;
   overflow: hidden;
-  background-color: colors.$SUB_BACKGROUND;
+  user-select: none;
+  background-color: colors.$MAIN_BACKGROUND;
   border: 1px solid colors.$CARD_BORDER;
   border-radius: 25px;
 
