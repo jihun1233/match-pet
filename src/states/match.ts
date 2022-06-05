@@ -18,12 +18,14 @@ const matchSlice = createSlice({
   reducers: {
     setUsers: (state: IMatchState, action: PayloadAction<IUser[]>) => {
       state.users = action.payload
+
       store.set('match-pet-users', state.users)
     },
     addMatch: (state: IMatchState, action: PayloadAction<IUser>) => {
       const matchUser = action.payload
       state.users = state.users.filter((u) => u.id !== matchUser.id)
       state.matches = [...state.matches, { user: matchUser, date: dayjs().format('YYYY-MM-DD'), chats: [] }]
+
       store.set('match-pet-users', state.users)
       store.set('match-pet-matches', state.matches)
     },
@@ -31,12 +33,22 @@ const matchSlice = createSlice({
       const rejectUser = action.payload
       state.users = state.users.filter((u) => u.id !== rejectUser.id)
       state.rejects = [...state.rejects, { ...rejectUser }]
+
       store.set('match-pet-users', state.users)
       store.set('match-pet-rejects', state.rejects)
     },
     cancelMatch: (state: IMatchState, action: PayloadAction<IMatch>) => {
       const match = action.payload
       state.matches = state.matches.filter((m) => m.user.id !== match.user.id)
+      store.set('match-pet-matches', state.matches)
+    },
+    revertReject: (state: IMatchState, action: PayloadAction<IUser>) => {
+      const user = action.payload
+      state.rejects = state.rejects.filter((r) => r.id !== user.id)
+      state.users = [...state.users, user]
+
+      store.set('match-pet-users', state.users)
+      store.set('match-pet-rejects', state.rejects)
     },
     increasePage: (state: IMatchState) => {
       state.page += 1
@@ -45,7 +57,7 @@ const matchSlice = createSlice({
   },
 })
 
-export const { setUsers, addMatch, addReject, cancelMatch, increasePage } = matchSlice.actions
+export const { setUsers, addMatch, addReject, cancelMatch, increasePage, revertReject } = matchSlice.actions
 
 export default matchSlice.reducer
 
