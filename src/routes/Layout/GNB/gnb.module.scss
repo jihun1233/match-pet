@@ -23,9 +23,8 @@
   }
 
   ul {
-    width: 100%;
-
     @include flexbox.flexbox(center, center);
+    width: 100%;
 
     li {
       @include flexbox.flexbox(center, cneter);
