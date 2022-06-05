@@ -1,7 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import styles from './gnb.module.scss'
-import { FaPaw } from 'react-icons/fa'
-import { AiFillMessage } from 'react-icons/ai'
+import { AiFillMessage, AiFillHeart } from 'react-icons/ai'
 import { MdContentPasteOff } from 'react-icons/md'
 
 const GNB = () => {
@@ -10,7 +9,7 @@ const GNB = () => {
       <ul>
         <li>
           <NavLink className={({ isActive }) => (isActive ? styles.active : undefined)} to=''>
-            <FaPaw size='40px' />
+            <AiFillHeart size='40px' />
             <p>매칭 하기</p>
           </NavLink>
         </li>

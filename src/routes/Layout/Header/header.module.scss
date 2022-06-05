@@ -1,0 +1,14 @@
+@use '/src/styles/mixins/flexbox';
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/position';
+
+header {
+  @include flexbox.flexbox(center, center);
+  @include position.fixed(0 0 auto auto);
+  width: 100%;
+  height: 70px;
+
+  .logo {
+    color: colors.$MAIN_THEME;
+  }
+}
