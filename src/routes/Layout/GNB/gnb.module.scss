@@ -1,0 +1,58 @@
+@use '/src/styles/mixins/flexbox';
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
+@use '/src/styles/mixins/position';
+
+.gnb {
+  width: 100%;
+
+  a {
+    @include flexbox.flexbox(start, center);
+    gap: 10px;
+    color: colors.$MAIN_TEXT;
+    text-decoration: none;
+
+    &.active {
+      color: colors.$MAIN_THEME;
+    }
+  }
+
+  ul {
+    width: 100%;
+    margin-top: 60px;
+    @include flexbox.flexbox(center, center);
+
+    li {
+      @include flexbox.flexbox(center, cneter);
+      width: 100%;
+
+      p {
+        display: none;
+      }
+    }
+  }
+
+  @include responsive.after(SD) {
+    @include position.fixed(0 auto auto 0);
+    width: 300px;
+    height: 100%;
+
+    ul {
+      flex-direction: column;
+      gap: 20px;
+
+      li {
+        align-items: center;
+        justify-content: flex-start;
+        height: 40px;
+
+        p {
+          display: inline;
+          margin-top: auto;
+          margin-bottom: auto;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
