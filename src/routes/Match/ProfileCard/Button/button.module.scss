@@ -3,8 +3,8 @@
 
 .button {
   @include flexbox.flexbox(center,center);
-  width: 30px;
-  height: 30px;
+  width: 60px;
+  height: 60px;
   color: colors.$MAIN_THEME;
   background-color: colors.$WHITE;
   border: 1px solid colors.$MAIN_THEME;
