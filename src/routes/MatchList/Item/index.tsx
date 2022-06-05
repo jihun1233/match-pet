@@ -1,5 +1,7 @@
 import { IMatch } from 'types/match'
 import { MdOutlineCancel } from 'react-icons/md'
+import { useAppDispatch } from 'hooks'
+import { cancelMatch } from 'states/match'
 
 import styles from './item.module.scss'
 
@@ -8,10 +10,15 @@ interface IProps {
 }
 
 const Item = ({ match }: IProps) => {
+  const dispatch = useAppDispatch()
   const {
     user: { name, previewSrc },
     date,
   } = match
+
+  const handleCancelClick = () => {
+    dispatch(cancelMatch(match))
+  }
 
   return (
     <li className={styles.item}>
@@ -24,7 +31,7 @@ const Item = ({ match }: IProps) => {
           <p>{date}</p>
         </div>
       </div>
-      <button type='button'>
+      <button type='button' onClick={handleCancelClick}>
         <MdOutlineCancel className={styles.cancelIcon} size='40px' />
       </button>
     </li>
