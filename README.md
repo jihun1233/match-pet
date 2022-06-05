@@ -1,46 +1,19 @@
-# Getting Started with Create React App
+# Match-pet
+애완동물 매칭 어플리케이션입니다. 매칭 어플을 생각하다가 애완동물샾이나 유기견 분양 등에도 사용할 수 있을 것 같았고 해외에서도 유사한 어플리케이션이 있는 것을 확인하고 저도 만들어봤습니다. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 기능
+### 데이터 설정
+matching 페이지(기본 라우팅) 마운트 시 api를 통해 무료 이미지를 불러오고, 미리 만들어둔 파일에서 이름, 소개를 무작위로 가공해 user객체를 만듭니다. 이 user객체 배열을 redux-toolkit state에 저장하고 storejs를 사용해 localStorage와 연계하여 다시 접속하거나 새로고침시에 이전 데이터를 그대로 활용할 수 있도록 했습니다.
 
-## Available Scripts
+### 매칭 하기
+생성한 users데이터를 바탕으로 api로 받아온 이미지 src를 통해 이미지를 표시하고 이름과 소개가 나옵니다. 하단의 하트 또는 X표시 버튼으로 매칭 또는 거절 할 수 있습니다.
 
-In the project directory, you can run:
+### 매치 목록
+매칭 하기 페이지에서 매치를 선택한 user들의 목록이 나옵니다. 매치 취소를 누르면 매치 목록에서 사라집니다.
 
-### `yarn start`
+### 거절 목록
+매칭 하기 페이지에서 거절을 선택한 user들의 목록이 나옵니다. 되돌리기 버튼을 누르면 거절 목록에서 사라지고 users데이터에 추가되어서 매칭 하기에서 다시 볼 수 있습니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 후기
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+아쉬웠던 점: 매칭 기능은 생각했지만 막상 디자인이나 구현방식이 감을 잡기가 어려워서 시간을 너무 끌었던 것 같습니다. 좀 더 구현해보고싶었던 기능들이 있었는데 간단한 채팅 기능과 매치 또는 거절 선택 시 애니메이션, 그리고 드래그앤드롭으로 매칭 선택 등 디테일한 부분들이 더 많았지만 손대지 못한 것이 아쉽고 시간이 된다면 해당 기능들을 추가해보고싶습니다.
