@@ -23,16 +23,28 @@ const ProfileCard = ({ user }: IProps) => {
 
   return (
     <div className={styles.profileCard}>
-      <img src={imgSrc} alt={name} />
-      {info.map((text) => (
-        <p key={`info-text-${text}`}>{text}</p>
-      ))}
+      <div className={styles.imgContainer}>
+        <img src={imgSrc} alt={name} />
+      </div>
+
+      <p className={styles.userName}>{name}</p>
+
+      <div className={styles.infoContainer}>
+        <ul>
+          {info.map((text) => (
+            <li key={`info-text-${text}`}>
+              <p>{text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <div className={styles.buttonContainer}>
         <Button filled={false} onClick={onClickReject}>
-          <AiOutlinePlus className={styles.rotate} />
+          <AiOutlinePlus size='30px' className={styles.rotate} />
         </Button>
         <Button onClick={onClickMatch}>
-          <AiFillHeart />
+          <AiFillHeart size='30px' />
         </Button>
       </div>
     </div>
