@@ -6,7 +6,7 @@ import type { RootState } from '.'
 import { IMatch, IMatchState, IUser } from 'types/match'
 
 const INITIAL_STATE: IMatchState = {
-  page: Number(store.get('match-pet-page')) || 0,
+  page: Number(store.get('match-pet-page')) || 1,
   users: store.get('match-pet-users') || [],
   matches: store.get('match-pet-matches') || [],
   rejects: store.get('match-pet-rejects') || [],
