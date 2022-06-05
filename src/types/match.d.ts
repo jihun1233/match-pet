@@ -16,4 +16,5 @@ export interface IMatchState {
   users: IUser[]
   matches: IMatch[]
   rejects: IUser[]
+  page: number
 }
