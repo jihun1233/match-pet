@@ -1,7 +1,7 @@
 import { getUsers, setUsers, getPage, increasePage } from 'states/match'
 import { useAppDispatch, useAppSelector } from 'hooks'
 
-import styles from './match.module.scss'
+import styles from './matching.module.scss'
 import ProfileCard from './ProfileCard'
 import { getUsersApi } from 'services/match'
 import { useQuery } from 'react-query'
