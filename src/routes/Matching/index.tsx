@@ -5,13 +5,14 @@ import styles from './matching.module.scss'
 import ProfileCard from './ProfileCard'
 import { getUsersApi } from 'services/match'
 import { useQuery } from 'react-query'
+import Loading from 'components/Loading'
 
 const Matching = () => {
   const dispatch = useAppDispatch()
   const users = useAppSelector(getUsers)
   const page = useAppSelector(getPage)
 
-  useQuery('getUsers', () => getUsersApi(page), {
+  const { isLoading } = useQuery('getUsers', () => getUsersApi(page), {
     enabled: users.length === 0,
     onSuccess: (res) => {
       dispatch(setUsers(res))
@@ -20,6 +21,8 @@ const Matching = () => {
   })
 
   if (users.length === 0) return null
+
+  if (isLoading) return <Loading />
 
   return (
     <div className={styles.match}>
