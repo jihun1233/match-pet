@@ -12,3 +12,25 @@
     transform: rotate(359deg);
   }
 }
+
+@keyframes swipeRight {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(200px) rotate(15deg);
+  }
+}
+
+@keyframes swipeLeft {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(-200px) rotate(-15deg);
+  }
+}

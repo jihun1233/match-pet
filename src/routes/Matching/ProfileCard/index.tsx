@@ -1,4 +1,4 @@
-import { useAppDispatch } from 'hooks'
+import { useAppDispatch, useRef, useUnmount } from 'hooks'
 import { AiFillHeart, AiOutlinePlus } from 'react-icons/ai'
 import { IUser } from 'types/match'
 import { addMatch, addReject } from 'states/match'
@@ -13,16 +13,31 @@ interface IProps {
 const ProfileCard = ({ user }: IProps) => {
   const dispatch = useAppDispatch()
   const { imgSrc, info, name } = user
+  const animationRef = useRef<HTMLDivElement>(null)
+  const timeoutRef = useRef<NodeJS.Timeout>()
 
   const onClickMatch = () => {
-    dispatch(addMatch(user))
+    const target = animationRef.current
+    target?.classList.add(styles.swipeRight)
+    timeoutRef.current = setTimeout(() => {
+      dispatch(addMatch(user))
+    }, 200)
   }
   const onClickReject = () => {
-    dispatch(addReject(user))
+    const target = animationRef.current
+    target?.classList.add(styles.swipeLeft)
+    timeoutRef.current = setTimeout(() => {
+      dispatch(addReject(user))
+    }, 200)
   }
 
+  useUnmount(() => {
+    if (!timeoutRef.current) return
+    clearTimeout(timeoutRef.current)
+  })
+
   return (
-    <div className={styles.profileCard}>
+    <div className={styles.profileCard} ref={animationRef}>
       <div className={styles.imgContainer}>
         <img src={imgSrc} alt={name} />
       </div>

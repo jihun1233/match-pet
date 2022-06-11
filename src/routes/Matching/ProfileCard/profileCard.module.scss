@@ -1,6 +1,7 @@
 @use '/src/styles/mixins/flexbox';
 @use '/src/styles/mixins/position';
 @use '/src/styles/constants/colors';
+@use '/src/styles/mixins/animation';
 
 .profileCard {
   @include flexbox.flexbox(start,start);
@@ -50,11 +51,17 @@
       @include flexbox.flexbox(start,start);
       flex-direction: column;
 
-      li {
-        + li {
-          margin-top: 5px;
-        }
+      li + li {
+        margin-top: 5px;
       }
     }
+  }
+
+  &.swipeRight {
+    animation: swipeRight 0.2s forwards;
+  }
+
+  &.swipeLeft {
+    animation: swipeLeft 0.2s forwards;
   }
 }
