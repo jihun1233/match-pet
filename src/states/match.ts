@@ -4,7 +4,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IMatch, IMatchState, IUser } from 'types/match'
 
 import type { RootState } from '.'
-// TODO: User, Match가 아닌 id를 전달하는 방식으로 컴포넌트에서 변경하기
 
 const INITIAL_STATE: IMatchState = {
   page: Number(store.get('match-pet-page')) || 1,
@@ -25,7 +24,6 @@ const matchSlice = createSlice({
     addMatch: (state: IMatchState, action: PayloadAction<string>) => {
       const matchId = action.payload
       const matchUser = state.users.find((u) => u.id === matchId)
-      // TODO: if(matchUser === undefined) 이면 에러메시지 모달
       if (!matchUser) return
 
       state.users = state.users.filter((u) => u.id !== matchId)
