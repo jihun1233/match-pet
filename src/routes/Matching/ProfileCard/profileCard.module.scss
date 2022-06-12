@@ -6,7 +6,7 @@
 .profileCard {
   @include flexbox.flexbox(start,start);
   flex-direction: column;
-  gap: 30px;
+  gap: 15px;
   width: 440px;
   min-height: 690px;
   padding: 20px;
@@ -41,6 +41,7 @@
 
   .userName {
     width: 100%;
+    padding-right: 20px;
     font-size: 20px;
     font-weight: 500;
     text-align: right;
