@@ -26,6 +26,10 @@ Matching 페이지(기본경로 라우팅) 마운트 시 api를 통해 무료 �
 되돌리기 버튼을 누르면 거절 목록에서 사라지고 유저데이터에 추가되어서 매칭 하기에서 다시 볼 수 있습니다.
 ![rejectList](https://user-images.githubusercontent.com/56039591/172040086-5dafd842-dc50-4db3-86c0-c8942b2086d8.gif)
 
+---
+### 확인 모달
+매칭을 취소하거나 거절한 대상을 다시 되돌리고 싶을 때 바로 확인을 거치는 부분을 모달로 구현하여 ConfirmModal을 추가하였습니다.
+![modal](https://user-images.githubusercontent.com/56039591/173238899-748c96ad-0161-491c-93e0-3233e3e00364.gif)
 
 ## 후기
 
