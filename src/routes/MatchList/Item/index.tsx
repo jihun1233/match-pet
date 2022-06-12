@@ -17,7 +17,7 @@ const Item = ({ match }: IProps) => {
   } = match
 
   const handleCancelClick = () => {
-    dispatch(cancelMatch(match))
+    dispatch(cancelMatch(match.user.id))
   }
 
   return (

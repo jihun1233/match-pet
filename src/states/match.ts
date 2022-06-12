@@ -1,9 +1,10 @@
 import store from 'store'
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import dayjs from 'dayjs'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { IMatch, IMatchState, IUser } from 'types/match'
 
 import type { RootState } from '.'
-import { IMatch, IMatchState, IUser } from 'types/match'
+// TODO: User, Match가 아닌 id를 전달하는 방식으로 컴포넌트에서 변경하기
 
 const INITIAL_STATE: IMatchState = {
   page: Number(store.get('match-pet-page')) || 1,
@@ -21,31 +22,44 @@ const matchSlice = createSlice({
 
       store.set('match-pet-users', state.users)
     },
-    addMatch: (state: IMatchState, action: PayloadAction<IUser>) => {
-      const matchUser = action.payload
-      state.users = state.users.filter((u) => u.id !== matchUser.id)
-      state.matches = [...state.matches, { user: matchUser, date: dayjs().format('YYYY-MM-DD'), chats: [] }]
+    addMatch: (state: IMatchState, action: PayloadAction<string>) => {
+      const matchId = action.payload
+      const matchUser = state.users.find((u) => u.id === matchId)
+      // TODO: if(matchUser === undefined) 이면 에러메시지 모달
+      if (!matchUser) return
+
+      state.users = state.users.filter((u) => u.id !== matchId)
+      state.matches = [...state.matches, { user: matchUser, date: dayjs().format('YYYY-MM-DD') }]
 
       store.set('match-pet-users', state.users)
       store.set('match-pet-matches', state.matches)
     },
-    addReject: (state: IMatchState, action: PayloadAction<IUser>) => {
-      const rejectUser = action.payload
-      state.users = state.users.filter((u) => u.id !== rejectUser.id)
+    addReject: (state: IMatchState, action: PayloadAction<string>) => {
+      const rejectId = action.payload
+      const rejectUser = state.users.find((u) => u.id === rejectId)
+      if (!rejectUser) return
+
+      state.users = state.users.filter((u) => u.id !== rejectId)
       state.rejects = [...state.rejects, { ...rejectUser }]
 
       store.set('match-pet-users', state.users)
       store.set('match-pet-rejects', state.rejects)
     },
-    cancelMatch: (state: IMatchState, action: PayloadAction<IMatch>) => {
-      const match = action.payload
-      state.matches = state.matches.filter((m) => m.user.id !== match.user.id)
+    cancelMatch: (state: IMatchState, action: PayloadAction<string>) => {
+      const matchId = action.payload
+      const match = state.matches.find((m) => m.user.id === matchId)
+      if (!match) return
+
+      state.matches = state.matches.filter((m) => m.user.id !== matchId)
       store.set('match-pet-matches', state.matches)
     },
-    revertReject: (state: IMatchState, action: PayloadAction<IUser>) => {
-      const user = action.payload
-      state.rejects = state.rejects.filter((r) => r.id !== user.id)
-      state.users = [...state.users, user]
+    revertReject: (state: IMatchState, action: PayloadAction<string>) => {
+      const rejectId = action.payload
+      const rejectUser = state.rejects.find((r) => r.id === rejectId)
+      if (!rejectUser) return
+
+      state.rejects = state.rejects.filter((r) => r.id !== rejectId)
+      state.users = [...state.users, rejectUser]
 
       store.set('match-pet-users', state.users)
       store.set('match-pet-rejects', state.rejects)

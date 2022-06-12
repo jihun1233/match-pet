@@ -14,7 +14,7 @@ const Item = ({ user }: IProps) => {
   const { name, previewSrc } = user
 
   const handleRevertClick = () => {
-    dispatch(revertReject(user))
+    dispatch(revertReject(user.id))
   }
 
   return (
