@@ -1,0 +1,32 @@
+@use '/src/styles/mixins/flexbox';
+@use '/src/styles/mixins/position';
+@use '/src/styles/constants/colors';
+
+.modalBackground {
+  @include position.fixed(0 0 auto auto);
+  @include flexbox.flexbox(center, center);
+  z-index: 100;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(4px);
+
+  .modalContents {
+    padding: 20px 40px;
+    white-space: pre-wrap;
+    background-color: colors.$WHITE;
+    border: 1px solid colors.$CARD_BORDER;
+    border-radius: 15px;
+
+    .buttonContainer {
+      @include flexbox.flexbox(end, center);
+      gap: 10px;
+      margin-top: 10px;
+
+      button {
+        &.confirmButton {
+          color: colors.$RED;
+        }
+      }
+    }
+  }
+}
