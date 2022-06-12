@@ -1,5 +1,5 @@
 import { useAppDispatch } from 'hooks'
-import { revertReject } from 'states/match'
+import { setDataId, openModal } from 'states/modal'
 import { IUser } from 'types/match'
 import { IoRefreshOutline } from 'react-icons/io5'
 
@@ -14,7 +14,8 @@ const Item = ({ user }: IProps) => {
   const { name, previewSrc } = user
 
   const handleRevertClick = () => {
-    dispatch(revertReject(user.id))
+    dispatch(setDataId(user.id))
+    dispatch(openModal())
   }
 
   return (
