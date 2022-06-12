@@ -20,14 +20,14 @@ const ProfileCard = ({ user }: IProps) => {
     const target = animationRef.current
     target?.classList.add(styles.swipeRight)
     timeoutRef.current = setTimeout(() => {
-      dispatch(addMatch(user))
+      dispatch(addMatch(user.id))
     }, 200)
   }
   const onClickReject = () => {
     const target = animationRef.current
     target?.classList.add(styles.swipeLeft)
     timeoutRef.current = setTimeout(() => {
-      dispatch(addReject(user))
+      dispatch(addReject(user.id))
     }, 200)
   }
 

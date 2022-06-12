@@ -9,7 +9,6 @@ export interface IUser {
 export interface IMatch {
   user: IUser
   date: string
-  chats: string[]
 }
 
 export interface IMatchState {
