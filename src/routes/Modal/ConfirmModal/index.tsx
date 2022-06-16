@@ -1,3 +1,6 @@
+import { useRef } from 'react'
+import { useClickAway } from 'react-use'
+
 import Portal from '../Portal'
 import styles from './confirmModal.module.scss'
 
@@ -8,12 +11,14 @@ interface IProps {
   onCancel: () => void
 }
 const ConfirmModal = ({ isOpen, message, onConfirm, onCancel }: IProps) => {
-  if (!isOpen) return null
+  const clickAwayRef = useRef(null)
+  useClickAway(clickAwayRef, onCancel)
 
+  if (!isOpen) return null
   return (
     <Portal>
       <div className={styles.modalBackground}>
-        <div className={styles.modalContents}>
+        <div className={styles.modalContents} ref={clickAwayRef}>
           <p>{message}</p>
           <div className={styles.buttonContainer}>
             <button type='button' className={styles.confirmButton} onClick={onConfirm}>
