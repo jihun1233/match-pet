@@ -1,20 +1,26 @@
-import { useAppDispatch, useRef, useUnmount } from 'hooks'
+import { useAppDispatch, useRef, useState, useUnmount } from 'hooks'
 import { AiFillHeart, AiOutlinePlus } from 'react-icons/ai'
 import { IUser } from 'types/match'
 import { addMatch, addReject } from 'states/match'
+import dog from 'assets/pngs/dog.png'
 
 import Button from './Button'
 import styles from './profileCard.module.scss'
+import { cx } from 'styles'
 
 interface IProps {
   user: IUser
 }
 
 const ProfileCard = ({ user }: IProps) => {
-  const dispatch = useAppDispatch()
   const { imgSrc, info, name } = user
+
+  const dispatch = useAppDispatch()
+
   const animationRef = useRef<HTMLDivElement>(null)
   const timeoutRef = useRef<NodeJS.Timeout>()
+
+  const [imgError, setImgError] = useState(false)
 
   const onClickMatch = () => {
     const target = animationRef.current
@@ -36,10 +42,16 @@ const ProfileCard = ({ user }: IProps) => {
     clearTimeout(timeoutRef.current)
   })
 
+  const onImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    const { currentTarget } = e
+    currentTarget.src = dog
+    setImgError(true)
+  }
+
   return (
     <div className={styles.profileCard} ref={animationRef}>
       <div className={styles.imgContainer}>
-        <img src={imgSrc} alt={name} />
+        <img className={cx({ [styles.imgError]: imgError })} src={imgSrc} alt={name} onError={onImgError} />
       </div>
 
       <p className={styles.userName}>{name}</p>
