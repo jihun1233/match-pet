@@ -37,16 +37,16 @@ const ProfileCard = ({ user }: IProps) => {
     }, 200)
   }
 
-  useUnmount(() => {
-    if (!timeoutRef.current) return
-    clearTimeout(timeoutRef.current)
-  })
-
   const onImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const { currentTarget } = e
     currentTarget.src = dog
     setImgError(true)
   }
+
+  useUnmount(() => {
+    if (!timeoutRef.current) return
+    clearTimeout(timeoutRef.current)
+  })
 
   return (
     <div className={styles.profileCard} ref={animationRef}>

@@ -1,6 +1,5 @@
-import ModalContainer from '..'
-
 import styles from './confirmModal.module.scss'
+import ModalContainer from '..'
 
 interface IProps {
   isOpen: boolean
