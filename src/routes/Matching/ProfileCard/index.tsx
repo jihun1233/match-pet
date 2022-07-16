@@ -7,6 +7,7 @@ import dog from 'assets/pngs/dog.png'
 import Button from './Button'
 import styles from './profileCard.module.scss'
 import { cx } from 'styles'
+import { addMessageModalMessage, openMessageModal } from 'states/modal'
 
 interface IProps {
   user: IUser
@@ -40,6 +41,8 @@ const ProfileCard = ({ user }: IProps) => {
   const onImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const { currentTarget } = e
     currentTarget.src = dog
+    dispatch(addMessageModalMessage(`${name} 님의 이미지를 가져오는데 실패했습니다.`))
+    dispatch(openMessageModal())
     setImgError(true)
   }
 
