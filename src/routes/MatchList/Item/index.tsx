@@ -1,7 +1,7 @@
 import { IMatch } from 'types/match'
 import { MdOutlineCancel } from 'react-icons/md'
 import { useAppDispatch } from 'hooks'
-import { setDataId, openModal } from 'states/modal'
+import { setConfirmModalDataId, openConfirmModal } from 'states/modal'
 import styles from './item.module.scss'
 
 interface IProps {
@@ -16,8 +16,8 @@ const Item = ({ match }: IProps) => {
   } = match
 
   const handleCancelClick = () => {
-    dispatch(setDataId(match.user.id))
-    dispatch(openModal())
+    dispatch(setConfirmModalDataId(match.user.id))
+    dispatch(openConfirmModal())
   }
 
   return (
