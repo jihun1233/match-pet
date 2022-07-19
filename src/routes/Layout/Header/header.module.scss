@@ -4,7 +4,7 @@
 @use '/src/styles/constants/levels';
 
 header {
-  @include flexbox.flexbox(center, center);
+  @include flexbox.flexbox(between, center);
   @include position.fixed(0 0 auto auto);
   z-index: levels.$HEADER;
   width: 100%;
@@ -13,5 +13,31 @@ header {
 
   .logo {
     color: colors.$MAIN_THEME;
+  }
+
+  .left {
+    width: 100px;
+  }
+
+  .right {
+    @include flexbox.flexbox(center,center);
+    width: 100px;
+    height: 25px;
+
+    .iconWrapper {
+      position: relative;
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+
+      &.newMessage::after {
+        @include position.absolute(0 0 auto auto);
+        width: 5px;
+        height: 5px;
+        content: '';
+        background-color: red;
+        border-radius: 50%;
+      }
+    }
   }
 }
