@@ -11,9 +11,11 @@ export interface IConfirmModal {
 export interface IMessageModal {
   isOpen: boolean
   messages: IMessage[]
+  hasUnreadMessage: boolean
 }
 
 export interface IMessage {
   id: number
   message: string
+  hasRead: boolean
 }

@@ -5,7 +5,7 @@ import type { RootState } from '.'
 
 const INITIAL_STATE: IModalState = {
   confirmModal: { dataId: null, isOpen: false },
-  messageModal: { isOpen: false, messages: [] },
+  messageModal: { isOpen: false, messages: [], hasUnreadMessage: false },
 }
 
 const modalSlice = createSlice({
@@ -30,11 +30,16 @@ const modalSlice = createSlice({
     addMessageModalMessage: (state: IModalState, action: PayloadAction<string>) => {
       const { payload: message } = action
       const id = state.messageModal.messages.at(-1)?.id ?? 0
-      state.messageModal.messages.push({ id, message })
+      state.messageModal.messages.push({ id, message, hasRead: false })
     },
     removeMessageModalMessage: (state: IModalState, action: PayloadAction<number>) => {
       const { payload: targetId } = action
       state.messageModal.messages = state.messageModal.messages.filter((message) => message.id !== targetId)
+    },
+    readMessage: (state: IModalState, action: PayloadAction<number>) => {
+      const { payload: targetId } = action
+      const target = state.messageModal.messages.findIndex((message) => message.id === targetId)
+      state.messageModal.messages[target].hasRead = true
     },
   },
 })
