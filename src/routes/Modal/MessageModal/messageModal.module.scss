@@ -4,13 +4,16 @@
 @use '/src/styles/constants/sizes';
 
 .messageModal {
-  max-width: 500px;
+  @include flexbox.flexbox(start, center);
+  flex-direction: column;
+  width: 500px;
   padding: 20px 40px;
   font-size: sizes.$MODAL_FONT;
   white-space: pre-wrap;
 
   .buttonContainer {
     @include flexbox.flexbox(end, end);
+    width: 100%;
     margin-top: 10px;
 
     button {

@@ -1,0 +1,9 @@
+@use '/src/styles/constants/colors';
+
+.messageModalItem {
+  width: 450px;
+  min-height: 50px;
+  padding: 5px;
+  border: 1px solid colors.$MODAL_BORDER;
+  border-radius: 15px;
+}

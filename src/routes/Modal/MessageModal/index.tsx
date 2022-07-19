@@ -1,6 +1,7 @@
 import styles from './messageModal.module.scss'
 import ModalContainer from '..'
 import { IMessage } from 'types/modal'
+import Item from './Item'
 
 interface Props {
   isOpen: boolean
@@ -15,7 +16,7 @@ const MessageModal = ({ isOpen, messages, onCancel }: Props) => {
     <ModalContainer onCancel={onCancel}>
       <div className={styles.messageModal}>
         {messages.map((m) => (
-          <p key={`messages-${m.id}`}>{m.message}</p>
+          <Item key={`messages-${m.id}`} message={m.message} />
         ))}
         <div className={styles.buttonContainer}>
           <button type='button' onClick={onCancel}>
