@@ -29,7 +29,8 @@ const modalSlice = createSlice({
     },
     addMessageModalMessage: (state: IModalState, action: PayloadAction<string>) => {
       const { payload: message } = action
-      const id = state.messageModal.messages.at(-1)?.id ?? 0
+      const lastId = state.messageModal.messages[state.messageModal.messages.length - 1]?.id ?? 0
+      const id = lastId + 1
       state.messageModal.messages.push({ id, message, hasRead: false })
     },
     removeMessageModalMessage: (state: IModalState, action: PayloadAction<number>) => {
@@ -52,6 +53,7 @@ export const {
   setConfirmModalDataId,
   addMessageModalMessage,
   removeMessageModalMessage,
+  readMessage,
 } = modalSlice.actions
 
 export default modalSlice.reducer
