@@ -15,9 +15,11 @@ const MessageModal = ({ isOpen, messages, onCancel }: Props) => {
   return (
     <ModalContainer onCancel={onCancel}>
       <div className={styles.messageModal}>
-        {messages.map((m) => (
-          <Item key={`messages-${m.id}`} message={m.message} />
-        ))}
+        <div className={styles.messageContainer}>
+          {messages.map((message) => (
+            <Item key={`messages-${message.id}`} message={message} />
+          ))}
+        </div>
         <div className={styles.buttonContainer}>
           <button type='button' onClick={onCancel}>
             닫기

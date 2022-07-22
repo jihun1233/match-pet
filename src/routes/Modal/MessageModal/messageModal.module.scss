@@ -11,6 +11,11 @@
   font-size: sizes.$MODAL_FONT;
   white-space: pre-wrap;
 
+  .messageContainer {
+    max-height: 450px;
+    overflow: auto;
+  }
+
   .buttonContainer {
     @include flexbox.flexbox(end, end);
     width: 100%;
