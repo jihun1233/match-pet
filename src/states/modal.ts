@@ -32,6 +32,8 @@ const modalSlice = createSlice({
       const lastId = state.messageModal.messages[state.messageModal.messages.length - 1]?.id ?? 0
       const id = lastId + 1
       state.messageModal.messages.push({ id, message, hasRead: false })
+
+      state.messageModal.hasUnreadMessage = true
     },
     removeMessageModalMessage: (state: IModalState, action: PayloadAction<number>) => {
       const { payload: targetId } = action
@@ -41,6 +43,8 @@ const modalSlice = createSlice({
       const { payload: targetId } = action
       const target = state.messageModal.messages.findIndex((message) => message.id === targetId)
       state.messageModal.messages[target].hasRead = true
+
+      state.messageModal.hasUnreadMessage = state.messageModal.messages.some((m) => !m.hasRead)
     },
   },
 })
@@ -65,3 +69,4 @@ export const getConfirmModalDataId = (state: RootState): string | null => state.
 
 export const getMessageModalIsOpen = (state: RootState) => state.modal.messageModal.isOpen
 export const getMessageModalMessages = (state: RootState) => state.modal.messageModal.messages
+export const getHasUnreadMessage = (state: RootState) => state.modal.messageModal.hasUnreadMessage
