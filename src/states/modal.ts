@@ -1,38 +1,72 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { IModalState } from 'types/modal'
 
 import type { RootState } from '.'
 
-interface IModalState {
-  isOpen: boolean
-  dataId: string | null
-}
-
 const INITIAL_STATE: IModalState = {
-  isOpen: false,
-  dataId: null,
+  confirmModal: { dataId: null, isOpen: false },
+  messageModal: { isOpen: false, messages: [], hasUnreadMessage: false },
 }
 
 const modalSlice = createSlice({
   name: 'modal',
   initialState: INITIAL_STATE,
   reducers: {
-    openModal: (state: IModalState) => {
-      state.isOpen = true
+    openConfirmModal: (state: IModalState) => {
+      state.confirmModal.isOpen = true
     },
-    closeModal: (state: IModalState) => {
-      state.isOpen = false
+    closeConfirmModal: (state: IModalState) => {
+      state.confirmModal.isOpen = false
     },
-    setDataId: (state: IModalState, action: PayloadAction<string>) => {
-      state.dataId = action.payload
+    setConfirmModalDataId: (state: IModalState, action: PayloadAction<string>) => {
+      state.confirmModal.dataId = action.payload
+    },
+    openMessageModal: (state: IModalState) => {
+      state.messageModal.isOpen = true
+    },
+    closeMessageModal: (state: IModalState) => {
+      state.messageModal.isOpen = false
+    },
+    addMessageModalMessage: (state: IModalState, action: PayloadAction<string>) => {
+      const { payload: message } = action
+      const lastId = state.messageModal.messages[state.messageModal.messages.length - 1]?.id ?? 0
+      const id = lastId + 1
+      state.messageModal.messages.push({ id, message, hasRead: false })
+
+      state.messageModal.hasUnreadMessage = true
+    },
+    removeMessageModalMessage: (state: IModalState, action: PayloadAction<number>) => {
+      const { payload: targetId } = action
+      state.messageModal.messages = state.messageModal.messages.filter((message) => message.id !== targetId)
+    },
+    readMessage: (state: IModalState, action: PayloadAction<number>) => {
+      const { payload: targetId } = action
+      const target = state.messageModal.messages.findIndex((message) => message.id === targetId)
+      state.messageModal.messages[target].hasRead = true
+
+      state.messageModal.hasUnreadMessage = state.messageModal.messages.some((m) => !m.hasRead)
     },
   },
 })
 
-export const { closeModal, openModal, setDataId } = modalSlice.actions
+export const {
+  closeConfirmModal,
+  closeMessageModal,
+  openConfirmModal,
+  openMessageModal,
+  setConfirmModalDataId,
+  addMessageModalMessage,
+  removeMessageModalMessage,
+  readMessage,
+} = modalSlice.actions
 
 export default modalSlice.reducer
 
 // Selector =====================
 
-export const getIsOpen = (state: RootState): boolean => state.modal.isOpen
-export const getDataId = (state: RootState): string | null => state.modal.dataId
+export const getConfirmModalIsOpen = (state: RootState): boolean => state.modal.confirmModal.isOpen
+export const getConfirmModalDataId = (state: RootState): string | null => state.modal.confirmModal.dataId
+
+export const getMessageModalIsOpen = (state: RootState) => state.modal.messageModal.isOpen
+export const getMessageModalMessages = (state: RootState) => state.modal.messageModal.messages
+export const getHasUnreadMessage = (state: RootState) => state.modal.messageModal.hasUnreadMessage

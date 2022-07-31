@@ -1,0 +1,31 @@
+@use '/src/styles/mixins/flexbox';
+@use '/src/styles/constants/colors';
+
+.message {
+  @include flexbox.flexbox(between, center);
+  gap: 20px;
+  width: 450px;
+  min-height: 50px;
+  padding: 15px;
+  border: 1px solid colors.$MODAL_BORDER;
+  border-radius: 15px;
+
+  & + & {
+    margin-top: 5px;
+  }
+
+  .text {
+    overflow: hidden;
+    word-wrap: break-word;
+  }
+
+  .hasRead {
+    font-size: 14px;
+    color: colors.$MODAL_STATUS_READ;
+  }
+
+  .readButton {
+    font-size: 14px;
+    color: colors.$MODAL_STATUS_UNREAD;
+  }
+}
