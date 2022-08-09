@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import styles from './gnb.module.scss'
-import { AiFillMessage, AiFillHeart } from 'react-icons/ai'
+import { AiFillMessage, AiFillHeart, AiFillHome } from 'react-icons/ai'
 import { MdContentPasteOff } from 'react-icons/md'
 
 const GNB = () => {
@@ -9,6 +9,12 @@ const GNB = () => {
       <ul>
         <li>
           <NavLink className={({ isActive }) => (isActive ? styles.active : undefined)} to=''>
+            <AiFillHome size='40px' />
+            <p>메인으로</p>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink className={({ isActive }) => (isActive ? styles.active : undefined)} to='matching'>
             <AiFillHeart size='40px' />
             <p>매칭 하기</p>
           </NavLink>
