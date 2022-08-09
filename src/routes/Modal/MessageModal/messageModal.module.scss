@@ -3,25 +3,26 @@
 @use '/src/styles/constants/colors';
 @use '/src/styles/constants/sizes';
 
-.confirmModal {
-  max-width: 500px;
+.messageModal {
+  @include flexbox.flexbox(start, center);
+  flex-direction: column;
+  width: 500px;
   padding: 20px 40px;
   font-size: sizes.$MODAL_FONT;
   white-space: pre-wrap;
 
+  .messageContainer {
+    max-height: 450px;
+    overflow: auto;
+  }
+
   .buttonContainer {
-    @include flexbox.flexbox(end, center);
-    gap: 10px;
+    @include flexbox.flexbox(end, end);
+    width: 100%;
     margin-top: 10px;
 
     button {
-      width: 50px;
-      height: 30px;
       font-size: sizes.$MODAL_BUTTON_FONT;
-
-      &.confirmButton {
-        color: colors.$RED;
-      }
     }
   }
 }

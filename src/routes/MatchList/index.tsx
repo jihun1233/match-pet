@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from 'hooks'
 import ConfirmModal from 'routes/Modal/ConfirmModal'
 import { getMatches, cancelMatch } from 'states/match'
-import { getIsOpen, getDataId, closeModal } from 'states/modal'
+import { getConfirmModalIsOpen, getConfirmModalDataId, closeConfirmModal } from 'states/modal'
 
 import Item from './Item'
 import styles from './matchList.module.scss'
@@ -9,17 +9,17 @@ import styles from './matchList.module.scss'
 const MatchList = () => {
   const dispatch = useAppDispatch()
   const matches = useAppSelector(getMatches)
-  const dataId = useAppSelector(getDataId)
-  const isModalOpen = useAppSelector(getIsOpen)
+  const dataId = useAppSelector(getConfirmModalDataId)
+  const isModalOpen = useAppSelector(getConfirmModalIsOpen)
   const modalMessage = '정말로 매치를 취소하시겠습니까?'
 
   const onConfirm = () => {
     if (!dataId) return
     dispatch(cancelMatch(dataId))
-    dispatch(closeModal())
+    dispatch(closeConfirmModal())
   }
   const onCancel = () => {
-    dispatch(closeModal())
+    dispatch(closeConfirmModal())
   }
 
   return (

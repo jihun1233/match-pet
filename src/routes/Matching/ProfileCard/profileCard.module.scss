@@ -8,7 +8,7 @@
   flex-direction: column;
   gap: 15px;
   width: 440px;
-  min-height: 690px;
+  height: auto;
   padding: 20px;
   overflow: hidden;
   user-select: none;
@@ -28,14 +28,17 @@
   .imgContainer {
     position: relative;
     width: 400px;
-    height: 500px;
+    height: 400px;
     overflow: hidden;
     border-radius: 25px;
 
     img {
-
       @include position.middleBox;
       height: 700px;
+
+      &.imgError {
+        height: 400px;
+      }
     }
   }
 

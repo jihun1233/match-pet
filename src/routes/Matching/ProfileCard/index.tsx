@@ -1,20 +1,27 @@
-import { useAppDispatch, useRef, useUnmount } from 'hooks'
+import { useAppDispatch, useRef, useState, useUnmount } from 'hooks'
 import { AiFillHeart, AiOutlinePlus } from 'react-icons/ai'
 import { IUser } from 'types/match'
 import { addMatch, addReject } from 'states/match'
+import dog from 'assets/pngs/dog.png'
 
 import Button from './Button'
 import styles from './profileCard.module.scss'
+import { cx } from 'styles'
+import { addMessageModalMessage, openMessageModal } from 'states/modal'
 
 interface IProps {
   user: IUser
 }
 
 const ProfileCard = ({ user }: IProps) => {
-  const dispatch = useAppDispatch()
   const { imgSrc, info, name } = user
+
+  const dispatch = useAppDispatch()
+
   const animationRef = useRef<HTMLDivElement>(null)
   const timeoutRef = useRef<NodeJS.Timeout>()
+
+  const [imgError, setImgError] = useState(false)
 
   const onClickMatch = () => {
     const target = animationRef.current
@@ -31,6 +38,14 @@ const ProfileCard = ({ user }: IProps) => {
     }, 200)
   }
 
+  const onImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    const { currentTarget } = e
+    currentTarget.src = dog
+    dispatch(addMessageModalMessage(`${name} 님의 이미지를 가져오는데 실패했습니다.`))
+    dispatch(openMessageModal())
+    setImgError(true)
+  }
+
   useUnmount(() => {
     if (!timeoutRef.current) return
     clearTimeout(timeoutRef.current)
@@ -39,7 +54,7 @@ const ProfileCard = ({ user }: IProps) => {
   return (
     <div className={styles.profileCard} ref={animationRef}>
       <div className={styles.imgContainer}>
-        <img src={imgSrc} alt={name} />
+        <img className={cx({ [styles.imgError]: imgError })} src={imgSrc} alt={name} onError={onImgError} />
       </div>
 
       <p className={styles.userName}>{name}</p>
