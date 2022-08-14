@@ -3,6 +3,7 @@ import { MdOutlineCancel } from 'react-icons/md'
 import { useAppDispatch } from 'hooks'
 import { setConfirmModalDataId, openConfirmModal } from 'states/modal'
 import styles from './item.module.scss'
+import PreviewCard from 'components/PreviewCard'
 
 interface IProps {
   match: IMatch
@@ -23,9 +24,7 @@ const Item = ({ match }: IProps) => {
   return (
     <li className={styles.item}>
       <div className={styles.leftContainer}>
-        <div className={styles.imgContainer}>
-          <img src={previewSrc} alt={name} />
-        </div>
+        <PreviewCard src={previewSrc} alt={`${name}'s preview`} />
         <div className={styles.textContainer}>
           <p className={styles.userName}>{name}</p>
           <p>{date}</p>

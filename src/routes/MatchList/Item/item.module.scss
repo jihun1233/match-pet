@@ -15,13 +15,6 @@
     @include flexbox.flexbox(start,start);
     height: 100%;
 
-    .imgContainer {
-      width: 150px;
-      height: 100px;
-      overflow: hidden;
-      border-radius: 15px;
-    }
-
     .textContainer {
       @include flexbox.flexbox(between, start);
       flex-direction: column;
